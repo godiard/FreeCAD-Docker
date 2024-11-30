@@ -98,8 +98,11 @@ fi
 echo "Enabling local X connections ..."
 xhost +local:
 
+# make sure the port are in sinc with the Dockerfile
 echo "Building from ${p_source_dir} ..."
 docker run -it --rm \
+    -p 5000:5000 \
+    -p 51000:51000 \
     -v ${p_source_dir}:/mnt/source \
     -v ${p_build_dir}:/mnt/build \
     -v ${HOME_DIR}:/mnt/files \

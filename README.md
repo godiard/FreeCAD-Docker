@@ -26,7 +26,7 @@ You must edit the [run_docker.sh](run_docker.sh) to set the correct path to the 
 Once the docker container has been created, you should have access to a command prompt that allows you to build your version of FreeCAD.
 
 ```shell
-docker> /root/build_script.sh
+docker> /root/build_freecad.sh
 ```
 
 ## Run FreeCAD
@@ -47,6 +47,22 @@ docker> /mnt/build/bin/FreeCAD
 
 You will be able to find the mounted directories within the container in the
 `/mnt` directory, named `/mnt/source`, `/mnt/build`, and `/mnt/files`.
+
+## Debug a FreeCAD Python workbench
+
+REF: [Python workbenches debugging](https://forum.freecad.org/viewtopic.php?t=35383)
+
+* Start winpdb
+
+```shell
+docker> winpdb
+```
+
+* Start FreeCAD
+
+```shell
+docker> /mnt/build/bin/FreeCAD --console --verbose /mnt/files/git/opensource/FreeCAD/src/Mod/BIM/Resources/importers/debug_importSH3D.py
+```
 
 ## Developing the image
 

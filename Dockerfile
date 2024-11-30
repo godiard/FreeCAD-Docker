@@ -110,9 +110,30 @@ RUN apt install -y \
 # Known python dependencies
 RUN python3 -m pip install ifcopenshell==0.8.0 
 
-# Add the build script
-ADD add_files/freecad_build_script.sh /root/build_script.sh
+# DEBUG C++ with gdb
+RUN apt install -y gdb libcanberra-gtk-module libcanberra-gtk3-module
+RUN python3 -m pip install gdbgui
+ENV FREECAD_GDB_PORT=5000
+EXPOSE 5000
 
+# DEBUG Python with winpdb
+RUN apt install -y wxpython-tools
+RUN python3 -m pip install winpdb-reborn
+ENV FREECAD_WINPDB_PORT=51000
+ENV FREECAD_WINPDB_PWD=1234
+EXPOSE 51000
+
+# These environment variable are set here to be used 
+#   by the different container's scripts
+ENV FREECAD_CONFIG_DIR="/root/.local/FreeCAD"
+ENV FREECAD_BUILD_DIR="/mnt/build"
+ENV FREECAD_SOURCE_DIR="/mnt/source"
+
+# Add the build & debug scripts
+ADD add_files/build_FC.sh /root/build_FC.sh
+ADD add_files/debug_FC_cpp.sh /root/debug_FC_cpp.sh
+ADD add_files/debug_FC_python.sh /root/debug_FC_python.sh
+ADD add_files/debug_FC_init.py /root/debug_FC_init.py
 
 WORKDIR /root
 
