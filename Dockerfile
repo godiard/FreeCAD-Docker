@@ -61,35 +61,43 @@ RUN apt install -y \
     libx11-dev \
     libxerces-c-dev \
     libyaml-cpp-dev \
-    libzipios++-dev 
+    libzipios++-dev
 
-# Python 3 and Qt5
-RUN apt install -y \
-    libpyside2-dev \
-    libqt5opengl5-dev \
-    libqt5svg5-dev \
-    libqt5x11extras5-dev \
-    libqt5xmlpatterns5-dev \
-    libshiboken2-dev \
-    pyqt5-dev-tools \
-    pyside2-tools \
-    python3-dev \
-    python3-matplotlib \
-    python3-packaging \
-    python3-pivy \
-    python3-ply \
-    python3-pyside2.qtcore \
-    python3-pyside2.qtgui \
-    python3-pyside2.qtnetwork \
-    python3-pyside2.qtsvg \
-    python3-pyside2.qtwebchannel \
-    python3-pyside2.qtwebengine \
-    python3-pyside2.qtwebenginecore \
-    python3-pyside2.qtwebenginewidgets \
-    python3-pyside2.qtwidgets \
-    qtbase5-dev \
-    qttools5-dev \
-    qtwebengine5-dev
+# Python 3 and Qt6
+#RUN apt install -y \
+#    libpyside2-dev \
+#    libqt6opengl6-dev \
+#    libqt6svg6-dev \
+#    libqt6x11extras6-dev \
+#    libqt6xmlpatterns6-dev \
+#    libshiboken2-dev \
+#    pyqt6-dev-tools \
+#    pyside2-tools \
+#    python3-dev \
+#    python3-matplotlib \
+#    python3-packaging \
+#    python3-pivy python3-pybind11 \
+#    python3-ply \
+#    python3-pyside2.qtcore \
+#    python3-pyside2.qtgui \
+#    python3-pyside2.qtnetwork \
+#    python3-pyside2.qtsvg \
+#    python3-pyside2.qtwebchannel \
+#    python3-pyside2.qtwebengine \
+#    python3-pyside2.qtwebenginecore \
+#    python3-pyside2.qtwebenginewidgets \
+#    python3-pyside2.qtwidgets \
+#    qtbase6-dev \
+#    qt6-tools-dev \
+#    qt6-webengine-dev
+
+
+
+RUN apt install -y libqt6opengl6-dev libqt6svg6-dev libshiboken2-dev \
+    qt6-base-dev qt6-tools-dev \
+    python3-dev python3-matplotlib python3-packaging python3-pivy \
+    python3-pybind11 python3-ply \
+    qt6-webengine-dev qt6-l10n-tools qt6-tools-dev-tools
 
 # OpenCascade
 RUN apt install -y libocct*-dev occt-draw
@@ -108,7 +116,16 @@ RUN apt install -y \
     python3-pip
 
 # Known python dependencies
-RUN python3 -m pip install ifcopenshell==0.8.0 
+RUN python3 -m pip install ifcopenshell==0.8.0
+
+WORKDIR /root
+RUN python3 -m pip install pyside6
+# build pyside, based on instrctions from https://pypi.org/project/PySide6/
+#RUN git clone https://code.qt.io/pyside/pyside-setup && \
+#    cd pyside-setup && \
+#    # if a specific version is needed
+#    git checkout 6.9 &&\
+#    python3 setup.py install --qtpaths=/usr/local/bin --build-tests
 
 # DEBUG C++ with gdb
 RUN apt install -y gdb libcanberra-gtk-module libcanberra-gtk3-module
@@ -123,7 +140,7 @@ ENV FREECAD_WINPDB_PORT=51000
 ENV FREECAD_WINPDB_PWD=1234
 EXPOSE 51000
 
-# These environment variable are set here to be used 
+# These environment variable are set here to be used
 #   by the different container's scripts
 ENV FREECAD_CONFIG_DIR="/root/.local/FreeCAD"
 ENV FREECAD_BUILD_DIR="/mnt/build"

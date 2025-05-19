@@ -8,8 +8,8 @@
 # REF: https://wiki.freecad.org/Compile_on_Docker
 
 
-p_source_dir=~/git/opensource/FreeCAD
-p_build_dir=~/git/opensource/FreeCAD-build
+p_source_dir=~/proyectos/freecad_source
+p_build_dir=~/proyectos/freecad_build
 p_conf_dir=~/.config/FreeCAD
 HOME_DIR=~/
 
@@ -48,7 +48,7 @@ EOF
 #==============================================================================
 options=$(getopt --alternative --name $(basename $0) --options "hc:b:s:" --longoptions help,config-dir:,build-dir:,source-dir: -- $0 "$@")
 if [ $? -ne 0 ]; then
-    usage 
+    usage
     exit 1
 fi
 eval set -- "$options"

@@ -41,7 +41,7 @@ EOF
 #==============================================================================
 options=$(getopt --alternative --name $(basename $0) --options "hdr" --longoptions help,debug,release -- $0 "$@")
 if [ $? -ne 0 ]; then
-    usage 
+    usage
     exit 1
 fi
 eval set -- "$options"
@@ -66,10 +66,15 @@ cmake \
     -D PYTHON_INCLUDE_DIR=/usr/include/python3.10/ \
     -D PYTHON_EXECUTABLE=/usr/bin/python3 \
     -D FREECAD_USE_OCC_VARIANT="Official Version" \
-    -D BUILD_QT5=ON \
+    -D BUILD_QT6=ON \
     -D BUILD_FEM=ON \
     -D BUILD_SANDBOX=OFF \
     -D BUILD_DESIGNER_PLUGIN=ON \
+    -D FREECAD_QT_MAJOR_VERSION=6 \
+    -D FREECAD_QT_VERSION=6 \
+    -D ENABLE_DEVELOPER_TESTS=Off \
+    -D Boost_USE_DEBUG_RUNTIME=FALSE \
+    -D FREECAD_USE_PCL=Off \
     -D CMAKE_BUILD_TYPE=$p_build_type \
     -S ${FREECAD_SOURCE_DIR} \
     -B ${FREECAD_BUILD_DIR}
