@@ -62,8 +62,8 @@ set -e
 # NOTE: The PYTHON_LIBRARY is dependant on the base image used
 #   in the docker file.
 cmake \
-    -D PYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.10.so.1.0 \
-    -D PYTHON_INCLUDE_DIR=/usr/include/python3.10/ \
+    -D PYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.13.so.1.0 \
+    -D PYTHON_INCLUDE_DIR=/usr/include/python3.13/ \
     -D PYTHON_EXECUTABLE=/usr/bin/python3 \
     -D FREECAD_USE_OCC_VARIANT="Official Version" \
     -D BUILD_QT6=ON \
