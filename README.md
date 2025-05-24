@@ -15,7 +15,22 @@ The docker is not deployed and therefore you need to build it locally
 
 ## Build the docker image
 
-You must edit the [run_docker.sh](run_docker.sh) to set the correct path to the `SOURCE_DIR`, `BUILD_DIR` and `CONF_DIR`. Then you can execute `run_docker.sh`:
+Before running `run_docker.sh` you need to define the directories for the sources and the build result.
+
+One option is create a file `env.sh` with the following variables
+```
+SOURCE_DIR=~/proyectos/freecad_source
+BUILD_DIR=~/proyectos/freecad_build
+CONF_DIR=~/.config/FreeCAD
+```
+
+Other option is use parameters to configure the directories
+
+```shell
+?> ./run_docker.sh --source-dir ~/sources/freecad_source --build-dir ~/freecad_build --config-dif ~/.config/FreeCAD
+```
+
+If you have the `env.sh` file created, just run
 
 ```shell
 ?> ./run_docker.sh
@@ -25,8 +40,9 @@ You must edit the [run_docker.sh](run_docker.sh) to set the correct path to the 
 
 Once the docker container has been created, you should have access to a command prompt that allows you to build your version of FreeCAD.
 
+
 ```shell
-docker> /root/build_freecad.sh
+docker> /root/build_FC.sh
 ```
 
 ## Run FreeCAD
@@ -53,6 +69,8 @@ You will be able to find the mounted directories within the container in the
 REF: [Python workbenches debugging](https://forum.freecad.org/viewtopic.php?t=35383)
 
 * Start winpdb
+
+(This is not working right now)
 
 ```shell
 docker> winpdb

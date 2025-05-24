@@ -8,10 +8,22 @@
 # REF: https://wiki.freecad.org/Compile_on_Docker
 
 
-p_source_dir=~/proyectos/freecad_source
-p_build_dir=~/proyectos/freecad_build
+p_source_dir=~/git/opensource/FreeCAD
+p_build_dir=~/git/opensource/FreeCAD-build
 p_conf_dir=~/.config/FreeCAD
 HOME_DIR=~/
+
+# try to read directories from "env.sh" file
+source env.sh
+if [ ! -z "${SOURCE_DIR}" ]; then
+    p_source_dir=${SOURCE_DIR}
+fi
+if [ ! -z "${BUILD_DIR}" ]; then
+    p_build_dir=${BUILD_DIR}
+fi
+if [ ! -z "${CONF_DIR}" ]; then
+    p_conf_dir=${CONF_DIR}
+fi
 
 #------------------------------------------------------------------------------
 # FUNCTION: usage
@@ -80,6 +92,10 @@ if [ ! -d "${p_source_dir}" ]; then
   echo "Invalid '--source-dir'. No such file or directory" >&2
   exit 1
 fi
+
+echo "Reading freecad sources from ${p_source_dir}"
+echo "Building to ${p_build_dir}"
+echo "Freecad preferencies from ${p_conf_dir}"
 
 echo "Building docker container ..."
 
